@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+    <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution 
+      	id="lala"
+		targetID="org.eclipse.debug.ui.ProcessConsoleType.#ContextMenu"> 
+         <menu
+               label="Web-O-Eclipse"
+               path="additions"
+               id="Plug.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         
+         
+         <action
+               label="Proactive"
+               class="plug.popup.actions.Proactive"
+               menubarPath="Plug.menu1/group1"
+               icon="images/pro.png"
+               id="Plug.Proactive">
+         </action>
+         
+         <action
+               label="Interactive"
+               class="plug.popup.actions.SearchExecution"
+               menubarPath="Plug.menu1/group1"
+                icon="images/interactive.png"
+               id="Plug.newAction">
+         </action>
+         
+         <action
+               label="Search"
+               class="plug.popup.actions.Search"
+               icon="images/search.png"
+               menubarPath="Plug.menu1/group1"
+               
+               id="Plug.newAction1">
+         </action>
+         
+      </viewerContribution>
+   </extension>
+
+ <extension point="org.eclipse.ui.console.consolePatternMatchListeners">
+    <consolePatternMatchListener
+       id="com.example.ConsolePatternMatcher"
+       regex="(.+Exception(:)?(.+)*)+\n(\s*at .+)+"
+       class="plug.popup.actions.SearchExecution">
+         <enablement/>
+    </consolePatternMatchListener>
+  </extension>
+
+	<extension
+         point="org.eclipse.ui.views">
+      <category
+            name="SurfClipse"
+            id="ca.usask.ca.srlab.surfclipse.client">
+      </category>
+      <view
+            name="Web-O-Eclipse"
+            category="ca.usask.ca.srlab.surfclipse.client"
+            class="plug.popup.actions.SurfEclipseConsole"
+            id="ca.usask.ca.srlab.surfclipse.client.views.SurfClipseClientView"
+             icon="images/eclipse.png">
+      </view>
+      <view
+            name="Web-O-Eclipse Browser"
+            category="ca.usask.ca.srlab.surfclipse.client"
+            class="plug.popup.actions.SurfEclipseBrowser"
+            id="ca.usask.ca.srlab.surfclipse.client.views.SurfClipseBrowser"
+            icon="images/browser.png">
+      </view>
+   </extension>
+
+	<extension point="org.eclipse.ui.commands">
+         <category
+               id="ca.usask.ca.srlab.surfclipse.client.category"
+               description="This is a category for command"
+               name="commandcategory">
+         </category>
+         <command
+               categoryId="ca.usask.ca.srlab.surfclipse.client.category"
+               defaultHandler="plug.popup.actions.Search"
+               id="ca.usask.ca.srlab.surfclipse.client.ShowSurfClipse"
+               name="Search Solutions">
+         </command>
+         <command
+               categoryId="ca.usask.ca.srlab.surfclipse.client.category"
+               defaultHandler="plug.popup.actions.Proactive"
+               id="ca.usask.ca.srlab.surfclipse.client.EnableProactive"
+               name="Enable Proactive">
+            <state 
+         		class="org.eclipse.jface.commands.ToggleState" 
+         		id="org.eclipse.ui.commands.toggleState"> 
+   			</state> 
+         </command>
+   </extension>
+
+
+	<extension point="org.eclipse.ui.menus">
+	<menuContribution 
+         locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+               <menu label="Web-O-Eclipse" id="ca.usask.ca.srlab.surfclipse.client.mainmenu">
+               <command commandId="ca.usask.ca.srlab.surfclipse.client.ShowSurfClipse"
+                     id="ca.usask.ca.srlab.surfClipse.client.ShowSurfClipseMenu"
+                     label="Search"
+                     icon="images/search.png"
+                    defaultHandler="plug.popup.actions.Search"
+                     style="push">
+               </command>
+               <command commandId="ca.usask.ca.srlab.surfclipse.client.EnableInteractive"
+                     id="ca.usask.ca.srlab.surfClipse.client.EnableInteractiveMenu"
+                     label="Interactive Mode"
+                       icon="images/interactive.png"
+               		enablesFor="!+"
+                     style="push">
+               </command>
+               <command commandId="ca.usask.ca.srlab.surfclipse.client.EnableProactive"
+                     id="ca.usask.ca.srlab.surfClipse.client.EnableProactiveMenu"
+                     label="Proactive Mode"
+                     icon="images/pro.png"
+                     style="push">
+               </command>
+               </menu>
+         </menuContribution> 
+   </extension>
+	
+
+
+</plugin>
